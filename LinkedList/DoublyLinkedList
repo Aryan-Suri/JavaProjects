@@ -1,0 +1,75 @@
+
+public class DoublyLinkedList
+{
+    Node head;
+    Node tail;
+    int size;
+    public class Node<E>
+    {
+        E element;
+        Node next;
+        Node prev;
+        
+        public Node(E element, Node next, Node prev)
+        {
+            this.element = element;
+            this.next = next;
+            this.prev = prev;
+        }
+    }
+    
+    public void addScore(int x)
+    {
+        Node node = new Node(x,null,null);
+        if(head == null)
+            head = node;
+        else
+        {
+            Node temp = head;
+            while(temp.next != null)
+                temp = temp.next;
+            temp.next = node;
+            node.prev = tail;
+            tail = node;
+            size++;
+        }
+    }
+    
+    public void print()
+    {
+        Node temp = head;
+        while(temp != null)
+        {
+            System.out.println(temp.element);
+            temp = temp.next;
+        }
+    }
+    
+    public void removeScore()
+    {
+        Node temp = head;
+        if(temp.next == tail)
+            temp.next = null;
+        else
+        {
+            while(temp.next.next != null)
+                temp = temp.next;
+            temp.next = null;
+            size--;
+        }
+    }
+    
+    public static void main()
+    {
+        DoublyLinkedList node = new DoublyLinkedList();
+        System.out.println("Values Before Deletion");
+        for(int i = 0; i < 50; i = i+2)
+            node.addScore(i);
+        node.print();
+        System.out.println();
+        System.out.println("Values After Deletion");
+        for(int i = 0; i < 10; i++)
+            node.removeScore();
+        node.print();
+    }
+}
